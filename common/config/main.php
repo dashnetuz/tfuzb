@@ -9,5 +9,17 @@ return [
         'cache' => [
             'class' => \yii\caching\FileCache::class,
         ],
+        'log' => [ // ✅ log component to‘g‘ri joyda
+            'traceLevel' => YII_DEBUG ? 3 : 0,
+            'targets' => [
+                [
+                    'class' => \yii\log\FileTarget::class,
+                    'levels' => ['error', 'warning', 'info'],
+                    'logFile' => '@runtime/logs/app.log',
+                    'categories' => ['PermissionHelper'],
+                ],
+            ],
+        ],
     ],
 ];
+

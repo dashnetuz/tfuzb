@@ -8,6 +8,9 @@ services:
             - ./docker/php/php.ini:/usr/local/etc/php/php.ini
         depends_on:
             - mysql
+        env_file:
+            - .env
+
 
     nginx-frontend:
         image: nginx:1.19

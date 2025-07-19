@@ -75,6 +75,10 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest) {
+            // Foydalanuvchini login sahifasiga yo'naltiradi va returnUrl ni avtomatik saqlaydi
+            return $this->redirect('/auth/login');
+        }
         return $this->render('index');
     }
 
@@ -83,23 +87,7 @@ class SiteController extends Controller
      *
      * @return mixed
      */
-    public function actionLogin()
-    {
-        if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
 
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        }
-
-        $model->password = '';
-
-        return $this->render('login', [
-            'model' => $model,
-        ]);
-    }
 
     /**
      * Logs out the current user.
